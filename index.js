@@ -24,10 +24,7 @@ async function run() {
 
         const db = client.db('portfolio');
         const collection = db.collection('users');
-        // const suppliesCollection = db.collection('supplies');
-
-        //assignment-7
-
+        const projectsCollection = db.collection('projects');
         
 
         // User Registration
@@ -84,17 +81,16 @@ async function run() {
 
         // ==============================================================
         // WRITE YOUR CODE HERE
-        //ASSIGNMENT-6
-        // //Create supplies
-        // app.post("/api/v1/create-supply", async (req, res) => {
-        //     const newSupply = req.body;
-        //     const result = await suppliesCollection.insertOne(newSupply);
-        //     res.status(201).json({
-        //         success: true,
-        //         message: 'New Supply Added successfully!',
-        //         data: result
-        //     });
-        // });
+        // //Create project
+        app.post("/api/create-project", async (req, res) => {
+            const newProject = req.body;
+            const result = await projectsCollection.insertOne(newProject);
+            res.status(201).json({
+                success: true,
+                message: 'New Project Added successfully!',
+                data: result
+            });
+        });
 
         // //get all supplies
         // app.get("/api/v1/supplies", async (req, res) => {
