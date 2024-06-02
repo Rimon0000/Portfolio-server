@@ -26,6 +26,7 @@ async function run() {
         const collection = db.collection('users');
         const projectsCollection = db.collection('projects');
         const blogsCollection = db.collection('blogs');
+        const skillsCollection = db.collection('skills');
         
 
         // User Registration
@@ -201,6 +202,65 @@ async function run() {
             });
            });
 
+
+        //Create skill
+        app.post("/api/create-skill", async (req, res) => {
+            const newSkill = req.body;
+            const result = await skillsCollection.insertOne(newSkill);
+            res.status(201).json({
+                success: true,
+                message: 'New Skill Added successfully!',
+                data: result
+            });
+        });
+
+        //get all skills
+        app.get("/api/skills", async (req, res) => {
+            const result = await skillsCollection.find().toArray();
+            res.status(201).json({
+                success: true,
+                message: 'Skills are retrieved successfully!',
+                data: result
+            });
+        });
+
+
+          //get a skill
+          app.get("/api/skill/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await skillsCollection.findOne(query);
+            res.status(201).json({
+                success: true,
+                message: 'Skill is retrieved successfully!',
+                data: result
+            });
+           });
+
+        //update a skill
+          app.put("/api/skill/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const update = { $set: req.body };
+            const result = await skillsCollection.findOneAndUpdate(query, update, { returnOriginal: false });
+            res.status(201).json({
+                success: true,
+                message: 'Skill is updated successfully!',
+                data: result
+            });
+           });
+
+        //delete a blog
+          app.delete("/api/skill/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await skillsCollection.deleteOne(query);
+            res.status(201).json({
+                success: true,
+                message: 'Skill is deleted successfully!',
+                data: result
+            });
+           });
     
 
           
