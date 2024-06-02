@@ -25,6 +25,7 @@ async function run() {
         const db = client.db('portfolio');
         const collection = db.collection('users');
         const projectsCollection = db.collection('projects');
+        const blogsCollection = db.collection('blogs');
         
 
         // User Registration
@@ -92,64 +93,115 @@ async function run() {
             });
         });
 
-        // //get all supplies
-        // app.get("/api/v1/supplies", async (req, res) => {
-        //     const result = await suppliesCollection.find().toArray();
-        //     res.status(201).json({
-        //         success: true,
-        //         message: 'Supplies are retrieved successfully!',
-        //         data: result
-        //     });
-        // });
+        // //get all projects
+        app.get("/api/projects", async (req, res) => {
+            const result = await projectsCollection.find().toArray();
+            res.status(201).json({
+                success: true,
+                message: 'Projects are retrieved successfully!',
+                data: result
+            });
+        });
 
 
-        //   //get a supply
-        //   app.get("/api/v1/supply/:id", async (req, res) => {
-        //     const id = req.params.id;
-        //     const query = { _id: new ObjectId(id) };
-        //     const result = await suppliesCollection.findOne(query);
-        //     res.status(201).json({
-        //         success: true,
-        //         message: 'Supplies is retrieved successfully!',
-        //         data: result
-        //     });
-        //    });
+          //get a project
+          app.get("/api/project/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await projectsCollection.findOne(query);
+            res.status(201).json({
+                success: true,
+                message: 'Project is retrieved successfully!',
+                data: result
+            });
+           });
 
-        //    //update a supply
-        //   app.put("/api/v1/supply/:id", async (req, res) => {
-        //     const id = req.params.id;
-        //     const query = { _id: new ObjectId(id) };
-        //     const update = { $set: req.body };
-        //     const result = await suppliesCollection.findOneAndUpdate(query, update, { returnOriginal: false });
-        //     res.status(201).json({
-        //         success: true,
-        //         message: 'Supplies is updated successfully!',
-        //         data: result
-        //     });
-        //    });
+        //update a project
+          app.put("/api/project/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const update = { $set: req.body };
+            const result = await projectsCollection.findOneAndUpdate(query, update, { returnOriginal: false });
+            res.status(201).json({
+                success: true,
+                message: 'Project is updated successfully!',
+                data: result
+            });
+           });
 
-        //    //delete a supply
-        //   app.delete("/api/v1/supply/:id", async (req, res) => {
-        //     const id = req.params.id;
-        //     const query = { _id: new ObjectId(id) };
-        //     const result = await suppliesCollection.deleteOne(query);
-        //     res.status(201).json({
-        //         success: true,
-        //         message: 'Supplies is deleted successfully!',
-        //         data: result
-        //     });
-        //    });
+        //delete a project
+          app.delete("/api/project/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await projectsCollection.deleteOne(query);
+            res.status(201).json({
+                success: true,
+                message: 'Projects is deleted successfully!',
+                data: result
+            });
+           });
 
-        //    //add a donation
-        //    app.post("/api/v1/add-donation", async (req, res) => {
-        //     const newDonation = req.body;
-        //     const result = await donationCollection.insertOne(newDonation);
-        //     res.status(201).json({
-        //         success: true,
-        //         message: 'Donation Added successfully!',
-        //         data: result
-        //     });
-        //     });
+
+        //Create blog
+        app.post("/api/create-blog", async (req, res) => {
+            const newBlog = req.body;
+            const result = await blogsCollection.insertOne(newBlog);
+            res.status(201).json({
+                success: true,
+                message: 'New Blog Added successfully!',
+                data: result
+            });
+        });
+
+        //get all blogs
+        app.get("/api/blogs", async (req, res) => {
+            const result = await blogsCollection.find().toArray();
+            res.status(201).json({
+                success: true,
+                message: 'Blogs are retrieved successfully!',
+                data: result
+            });
+        });
+
+
+          //get a blog
+          app.get("/api/blog/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await blogsCollection.findOne(query);
+            res.status(201).json({
+                success: true,
+                message: 'Blog is retrieved successfully!',
+                data: result
+            });
+           });
+
+        //update a blog
+          app.put("/api/blog/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const update = { $set: req.body };
+            const result = await blogsCollection.findOneAndUpdate(query, update, { returnOriginal: false });
+            res.status(201).json({
+                success: true,
+                message: 'Blog is updated successfully!',
+                data: result
+            });
+           });
+
+        //delete a blog
+          app.delete("/api/blog/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await blogsCollection.deleteOne(query);
+            res.status(201).json({
+                success: true,
+                message: 'Blog is deleted successfully!',
+                data: result
+            });
+           });
+
+    
 
           
 
