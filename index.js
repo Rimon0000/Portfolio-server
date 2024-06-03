@@ -27,6 +27,7 @@ async function run() {
         const projectsCollection = db.collection('projects');
         const blogsCollection = db.collection('blogs');
         const skillsCollection = db.collection('skills');
+        const contactsCollection = db.collection('contacts');
         
 
         // User Registration
@@ -262,6 +263,17 @@ async function run() {
             });
            });
     
+
+        //Create contact
+        app.post("/api/create-contact", async (req, res) => {
+            const newSkill = req.body;
+            const result = await contactsCollection.insertOne(newSkill);
+            res.status(201).json({
+                success: true,
+                message: 'New Contact Added successfully!',
+                data: result
+            });
+        });
 
           
 
